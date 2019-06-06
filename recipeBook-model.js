@@ -34,7 +34,7 @@ function addDish(dish) {
 }
 
 function getRecipes() {
-    return db('recipes')
+    return db('recipes').leftJoin('dishes', 'recipes.dish_id', 'dishes.id'); 
 }
 
 function addRecipe(recipe) {

@@ -24,6 +24,18 @@ server.get('/dishes', async (req, res) => {
         })
 })
 
+server.get('/dishes/:id', async (req, res) => {
+    RecipeBook.getDish(req.params.id).then(dish => {
+        if (dish) {
+            res.status(200).json(dish); 
+        } else {
+            res.status(404).json({ message: "Dish not found, eat something else!"})
+        }
+    }) .catch(error => {
+        res.status(500).json(error); 
+    })
+})
+
 // Getting all recipes to make sure data saved
 server.get('/recipes', async (req, res) => {
     RecipeBook.getRecipes().then(recipes => {
