@@ -38,6 +38,16 @@ server.get('/recipes', async (req, res) => {
     }
 })
 
+// Getting all my ingredients to make sure data saved
+server.get('/ingredients', async (req, res) => {
+    try {
+        const ingredients = await db('ingredients'); 
+        res.status(200).json(ingredients); 
+    } catch (error) {
+        res.status(500).json(error); 
+    }
+})
+
 // 
 
 // Telling my server where to listen 

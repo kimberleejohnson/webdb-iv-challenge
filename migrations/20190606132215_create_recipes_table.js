@@ -19,5 +19,5 @@ exports.up = function(knex, Promise) {
 
 // Describing what happens if we try to delete from table
 exports.down = function(knex, Promise) {
-  
+    return knex.schema.dropTableIfExists('recipes'); 
 };
