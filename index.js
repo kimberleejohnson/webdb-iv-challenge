@@ -17,8 +17,13 @@ server.use(helmet());
 server.use(express.json()); 
 
 // ROUTES TBD 
-server.get('/', async (req, res) => {
-
+server.get('/dishes', async (req, res) => {
+    try {
+        const dishes = await db('dishes'); // all the dishes
+        res.status(200).json(dishes);
+    } catch (error) {
+        res.status(500).json(error); 
+    }
 })
 
 // 
