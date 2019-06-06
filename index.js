@@ -17,10 +17,22 @@ server.use(helmet());
 server.use(express.json()); 
 
 // ROUTES TBD 
+
+// Getting all my dishes to make sure the data was built
 server.get('/dishes', async (req, res) => {
     try {
         const dishes = await db('dishes'); // all the dishes
         res.status(200).json(dishes);
+    } catch (error) {
+        res.status(500).json(error); 
+    }
+})
+
+// Getting all recipes to make sure data saved
+server.get('/recipes', async (req, res) => {
+    try {
+        const recipes = await db('recipes'); 
+        res.status(200).json(recipes); 
     } catch (error) {
         res.status(500).json(error); 
     }
