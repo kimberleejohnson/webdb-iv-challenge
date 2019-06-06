@@ -12,7 +12,7 @@ const server = express();
 server.use(helmet()); 
 server.use(express.json()); 
 
-// ROUTES TBD 
+// ROUTES 
 
 // Getting all my dishes to make sure the data was built
 server.get('/dishes', async (req, res) => {
@@ -34,6 +34,14 @@ server.get('/recipes', async (req, res) => {
     })
 })
 
+// Adding a dish to make sure export works 
+server.post('/dishes', (req, res) => {
+    RecipeBook.addDish(req.body, 'id').then(ids => {
+        res.status(201).json(ids);
+    }).catch(error => {
+        res.status(500).json(error); 
+    })
+})
 
 // 
 
