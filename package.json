@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/kimberleejohnson/webdb-iv-challenge/issues"
   },
-  "homepage": "https://github.com/kimberleejohnson/webdb-iv-challenge#readme"
+  "homepage": "https://github.com/kimberleejohnson/webdb-iv-challenge#readme",
+  "dependencies": {
+    "knex": "^0.17.3",
+    "sqlite3": "^4.0.8"
+  }
 }
