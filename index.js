@@ -1,13 +1,9 @@
 // Requiring all my dependencies 
 const express = require('express'); 
-const helmet = require('helmet'); 
-const knex = require('knex');
+const helmet = require('helmet');
 
-// Setting up knexConfig, since I already called npx knex init 
-const knexConfig = require('./knexfile.js')
-
-// Defining my database as the development part of my knex file 
-const db = knex(knexConfig.development); 
+// Pulling in my model 
+const RecipeBook = require('./recipeBook-model.js'); 
 
 // Defining my server
 const server = express(); 
@@ -20,44 +16,24 @@ server.use(express.json());
 
 // Getting all my dishes to make sure the data was built
 server.get('/dishes', async (req, res) => {
-    try {
-        const dishes = await db('dishes'); // all the dishes
-        res.status(200).json(dishes);
-    } catch (error) {
-        res.status(500).json(error); 
-    }
+        RecipeBook.getDishes().then(dishes => {
+            res.status(200).json(dishes);
+        })
+        .catch(error => {
+            res.status(500).json(error); 
+        })
 })
 
 // Getting all recipes to make sure data saved
 server.get('/recipes', async (req, res) => {
-    try {
-        const recipes = await db('recipes'); 
+    RecipeBook.getRecipes().then(recipes => {
         res.status(200).json(recipes); 
-    } catch (error) {
+    })
+    .catch(error => {
         res.status(500).json(error); 
-    }
+    })
 })
 
-// Getting all my ingredients to make sure data saved
-server.get('/ingredients', async (req, res) => {
-    try {
-        const ingredients = await db('ingredients'); 
-        res.status(200).json(ingredients); 
-    } catch (error) {
-        res.status(500).json(error); 
-    }
-})
-
-// Making sure my recipe ingredients saves with a test get
-server.get('/recipe-ingredients', async (req, res) => {
-    try {
-        const recipe_ingredients = await db('recipe_ingredients'); 
-
-        res.status(200).json(recipe_ingredients); 
-    } catch (error) {
-        res.status(500).json(error)
-    }
-})
 
 // 
 
